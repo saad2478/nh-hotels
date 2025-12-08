@@ -9,8 +9,7 @@ html {
    FEATURE SECTION STYLES
    =========================== */
 .features-section {
-	padding-top: 100px;
-	padding-bottom: 100px;
+	padding-bottom: 85px;
 }
 
 .feature-card img {
@@ -87,23 +86,6 @@ header.header-overlay::before {
 	height: 100%;
 	background: rgba(0,0,0,0.15);
 	z-index: 1;
-}
-
-@keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
-header.position-relative::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0,0,0,0.3);
-			z-index: 1;
-			pointer-events: none;
-}
-header.position-relative nav {
-			position: relative;
-			z-index: 2;
 }
 
 header.header-overlay nav {
