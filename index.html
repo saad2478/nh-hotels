@@ -35,6 +35,14 @@
 	<link rel="stylesheet" href="assets/css/styles.min.css">
 </head>
 <body>
+	<!-- Loader -->
+	<div id="loader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:#003a70;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s;">
+		<img src="assets/images/NH Hotels-logo.svg" alt="Logo" style="height:64px;width:auto;margin-bottom:32px;filter:brightness(0) invert(1);">
+		<div class="loader-spinner" style="width:48px;height:48px;border:6px solid #fff;border-top:6px solid #215ca9;border-radius:50%;animation:spin 1s linear infinite;"></div>
+	</div>
+	<style>
+		@keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+	</style>
 	<!-- Header Section -->
 	<header class="position-relative header-overlay" style="z-index: 2; border-bottom: 1px solid #fff;">
 		<nav class="navbar navbar-expand-lg navbar-light bg-transparent py-3">
@@ -419,5 +427,23 @@
 
 	<!-- Bootstrap JS Bundle -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+	<script>
+	// Loader hides after hero bg image loads
+	window.addEventListener('DOMContentLoaded', function() {
+		var heroSection = document.querySelector('.hero-section');
+		var loader = document.getElementById('loader');
+		var bgUrl = heroSection.style.backgroundImage.match(/url\(['"]?(.*?)['"]?\)/);
+		if(bgUrl && bgUrl[1]) {
+			var img = new Image();
+			img.src = bgUrl[1];
+			img.onload = function() {
+				loader.style.opacity = '0';
+				setTimeout(function(){ loader.style.display = 'none'; }, 500);
+			};
+		} else {
+			loader.style.display = 'none';
+		}
+	});
+	</script>
 </body>
 </html>
