@@ -14,6 +14,54 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 	<!-- Inline critical CSS for header and hero section -->
 	<style>
+				/* Hamburger icon color white */
+				.navbar-toggler {
+					border: none;
+				}
+				.navbar-toggler .navbar-toggler-icon {
+					background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+				}
+				/* Mobile menu overlay styles */
+				.mobile-menu-overlay {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100vw;
+					height: 100vh;
+					background: rgba(0,0,0,0.92);
+					z-index: 9999;
+					transform: translateX(-100vw);
+					transition: transform 0.35s cubic-bezier(.77,0,.175,1);
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					padding: 0;
+				}
+				.mobile-menu-overlay.open {
+					transform: translateX(0);
+				}
+				.mobile-menu-list {
+					margin-top: 80px;
+					width: 100%;
+				}
+				.mobile-menu-list .nav-link {
+					color: #fff !important;
+					font-size: 1.2rem;
+					padding: 1.2rem 2rem;
+					border-bottom: 1px solid rgba(255,255,255,0.08);
+					width: 100%;
+					display: block;
+				}
+				.mobile-menu-close {
+					position: absolute;
+					top: 24px;
+					right: 24px;
+					font-size: 2rem;
+					color: #fff;
+					background: none;
+					border: none;
+					z-index: 10001;
+				}
 		body {margin:0;}
 		header.header-overlay {position:relative;}
 		/* header.header-overlay::before removed to eliminate header overlay */
@@ -29,6 +77,14 @@
 		.btn-primary:hover,.btn-primary:focus {background-color:#215ca9!important;border-color:#215ca9!important;}
 		.hero-section {height:100vh;background:url('assets/images/NH Hotel-hero.webp') center center/cover no-repeat;margin-top:-100px;padding-top:100px;z-index:1;}
 		.hero-section h1.display-3 {font-size:3.5rem;text-shadow:0 2px 8px rgba(0,0,0,0.5);font-family:'Gotham',Arial,sans-serif;font-weight:500;line-height:1.2;}
+@media (max-width: 575.98px) {
+	.hero-section h1.display-3, .hero-section h1 {
+		font-size: 1.35rem !important;
+	}
+	.hero-section .container {
+		padding-bottom: 24px !important;
+	}
+}
 		.hero-section p,.hero-section .btn {text-shadow:0 2px 8px rgba(0,0,0,0.5);font-family:'Gotham',Arial,sans-serif;}
 		.hero-overlay {background:rgba(0,0,0,0.5)!important;position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;}
 		.animated-arrow {animation:bounce 1.5s infinite;}
@@ -48,20 +104,38 @@
 	<!-- Header Section -->
 	<header class="position-relative" style="z-index: 2; border-bottom: 1px solid rgba(255,255,255,0.5);">
 		<nav class="navbar navbar-expand-lg navbar-light bg-transparent py-0" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.539583) 33.33%, rgba(0, 0, 0, 0) 100%); min-height: 75px; height: 75px;">
-			<div class="container d-flex justify-content-between align-items-center">
-				<div class="d-flex align-items-center gap-4">
-					<!-- Logo on the left -->
-					<a class="navbar-brand d-flex align-items-center me-3" href="#">
-						<img src="assets/images/NH Hotels-logo.svg" alt="NH Hotels Logo" height="48">
-					</a>
-					<!-- Navigation links on the left -->
-					<a class="nav-link text-white px-2" href="#fleet" style="font-weight:400;">Our Fleet</a>
-					<a class="nav-link text-white px-2" href="#yachts" style="font-weight:400;">Our Yachts</a>
-					<a class="nav-link text-white px-2" href="#tours" style="font-weight:400;">Our Tours</a>
+			<div class="container">
+				<a class="navbar-brand d-flex align-items-center me-3" href="#">
+					<img src="assets/images/NH Hotels-logo.svg" alt="NH Hotels Logo" height="48">
+				</a>
+				<button class="navbar-toggler" type="button" id="mobileMenuBtn" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse d-none d-lg-flex" id="mainNavbar">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-lg-center gap-lg-4">
+						<li class="nav-item">
+							<a class="nav-link text-white px-2" href="#fleet" style="font-weight:400;">Our Fleet</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white px-2" href="#yachts" style="font-weight:400;">Our Yachts</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white px-2" href="#tours" style="font-weight:400;">Our Tours</a>
+						</li>
+					</ul>
+					<div class="d-flex align-items-center mt-3 mt-lg-0">
+						<a href="#contact" class="btn btn-primary px-4 py-2 ms-lg-2" style="font-weight:500;">Book Now</a>
+					</div>
 				</div>
-				<!-- Book Now button on the right -->
-				<div>
-					<a href="#contact" class="btn btn-primary px-4 py-2 ms-2" style="font-weight:500;">Book Now</a>
+				<!-- Mobile menu overlay -->
+				<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+					<button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+					<nav class="mobile-menu-list w-100">
+						<a class="nav-link" href="#fleet">Our Fleet</a>
+						<a class="nav-link" href="#yachts">Our Yachts</a>
+						<a class="nav-link" href="#tours">Our Tours</a>
+						<a href="#contact" class="btn btn-primary px-4 py-2 mt-4 ms-2 w-75" style="font-weight:500;">Book Now</a>
+					</nav>
 				</div>
 			</div>
 		</nav>
@@ -69,7 +143,7 @@
 
 	<!-- Hero Section -->
 	<section class="hero-section position-relative" style="height: 80vh; background: url('assets/images/NH Hotel-hero.webp') center center/cover no-repeat; margin-top: -75px; padding-top: 75px; z-index: 1;">
-		<div class="position-relative container d-flex align-items-end" style="z-index: 3; height: 100%; padding-bottom: 30px;">
+	<div class="position-relative container d-flex align-items-end justify-content-start" style="z-index: 3; height: 100%; padding-bottom: 30px;">
 			<div class="row w-100">
 				<!-- Left side: Text content with button -->
 				<div class="col-lg-6">
@@ -479,6 +553,32 @@
 
 	<!-- Bootstrap JS Bundle -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+		<script>
+		// Mobile menu overlay logic
+		document.addEventListener('DOMContentLoaded', function() {
+			var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+			var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+			var mobileMenuClose = document.getElementById('mobileMenuClose');
+			function openMenu() {
+				mobileMenuOverlay.classList.add('open');
+				document.body.style.overflow = 'hidden';
+			}
+			function closeMenu() {
+				mobileMenuOverlay.classList.remove('open');
+				document.body.style.overflow = '';
+			}
+			mobileMenuBtn.addEventListener('click', openMenu);
+			mobileMenuClose.addEventListener('click', closeMenu);
+			// Close menu on overlay click (not on menu content)
+			mobileMenuOverlay.addEventListener('click', function(e) {
+				if (e.target === mobileMenuOverlay) closeMenu();
+			});
+			// Close menu on ESC
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape') closeMenu();
+			});
+		});
+		</script>
 	<script>
 	// Loader hides after hero bg image loads
 	window.addEventListener('DOMContentLoaded', function() {
