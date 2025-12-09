@@ -130,11 +130,11 @@
 				<!-- Mobile menu overlay -->
 				<div class="mobile-menu-overlay" id="mobileMenuOverlay">
 					<button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
-					<nav class="mobile-menu-list w-100">
-						<a class="nav-link" href="#fleet">Our Fleet</a>
-						<a class="nav-link" href="#yachts">Our Yachts</a>
-						<a class="nav-link" href="#tours">Our Tours</a>
-						<a href="#contact" class="btn btn-primary px-4 py-2 mt-4 ms-2 w-75" style="font-weight:500;">Book Now</a>
+					<nav class="mobile-menu-list">
+						<a class="nav-link" href="#fleet" id="mobileFleet">Our Fleet</a>
+						<a class="nav-link" href="#yachts" id="mobileYachts">Our Yachts</a>
+						<a class="nav-link" href="#tours" id="mobileTours">Our Tours</a>
+						<a href="#contact" class="btn btn-primary px-4 py-2 mt-4" style="font-weight:400; margin-left: 20px;" id="mobileBookNow">Book Now</a>
 					</nav>
 				</div>
 			</div>
@@ -149,7 +149,7 @@
 				<div class="col-lg-6">
 					<div style="background: rgba(0,0,0,0.25); padding: 1.2rem 1.5rem;">
 						<p class="text-white text-uppercase mb-2" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: 'Gotham', Arial, sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.15em;">NH Hotels &amp; Resorts</p>
-						<h1 class="text-white mb-2" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: 'Gotham', Arial, sans-serif; font-weight: 500; line-height: 1.2; font-size: 1.9rem;">Get Around in Style<br>With Our Private Chauffeurs</h1>
+						<h1 class="text-white mb-2" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: 'Gotham', Arial, sans-serif; font-weight: 500; line-height: 1.2; font-size: 1.9rem;">Get Around in Style With Our Private Chauffeurs</h1>
 						<p class="text-white mb-3" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-family: 'Gotham', Arial, sans-serif; font-size: 0.95rem; font-weight: 300;">Provided by Mr. Charles</p>
 						<a href="#contact" class="btn btn-primary px-4 py-2" style="font-size: 0.9rem; letter-spacing: 0.05em;">Get in Touch</a>
 					</div>
@@ -163,7 +163,7 @@
 		<div class="container">
 			<div class="text-center mb-5">
 				<h2 class="mb-3" style="font-family: 'Gotham', Arial, sans-serif; color: #003a70; font-weight: 500;">Our Premium Fleet</h2>
-				<p class="lead" style="font-family: 'Gotham', Arial, sans-serif; font-weight: 300; color: #555; max-width: 800px; margin: 0 auto;">
+				<p class="lead" style="font-family: 'Gotham', Arial, sans-serif; font-weight: 300; color: #555; line-height: 1.9; max-width: 750px; margin: 0 auto; font-size: 1.1rem;">
 					Experience unparalleled luxury and comfort with our meticulously maintained collection of premium vehicles
 				</p>
 			</div>
@@ -305,7 +305,10 @@
 		<!-- Features Section -->
 	<section class="features-section" id="features" style="padding-top: 70px;">
 		<div class="container">
-		    <h2 class="text-center mb-4" style="font-family: 'Gotham', Arial, sans-serif; color: #003a70;">Premium Chauffeur Services by Mr. Charles</h2>
+			<h2 class="text-center mb-3" style="font-family: 'Gotham', Arial, sans-serif; color: #003a70;">Premium Chauffeur Services by Mr. Charles</h2>
+			<p class="lead text-center mb-5" style="font-family: 'Gotham', Arial, sans-serif; font-weight: 300; color: #555; line-height: 1.9; max-width: 750px; margin: 0 auto; font-size: 1.1rem;">
+				Experience luxury, comfort, and professionalism on every journey with our dedicated team and premium fleet.
+			</p>
 		    <div class="row g-4 mb-4">
 						<!-- Feature Cards: Chauffeur Service Focused -->
 					<div class="col-12 col-sm-6 col-lg-3">
@@ -399,7 +402,7 @@
 	<section class="services-section" style="padding-top: 70px; padding-bottom: 70px; background-color: #fff;">
 		<div class="container">
 			<h2 class="text-center mb-4" style="font-family: 'Gotham', Arial, sans-serif; color: #003a70;">Exclusive Lifestyle Services</h2>
-			<p class="text-center mb-5" style="font-family: 'Gotham', Arial, sans-serif; font-weight: 300; color: #555; max-width: 700px; margin: 0 auto;">
+			<p class="lead mb-5" style="font-family: 'Gotham', Arial, sans-serif; font-weight: 300; color: #555; line-height: 1.9; max-width: 750px; margin: 0 auto; font-size: 1.1rem;">
 				Beyond transportation, we offer curated experiences designed to elevate your stay
 			</p>
 			<div class="row g-4">
@@ -559,6 +562,10 @@
 			var mobileMenuBtn = document.getElementById('mobileMenuBtn');
 			var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
 			var mobileMenuClose = document.getElementById('mobileMenuClose');
+			var mobileFleet = document.getElementById('mobileFleet');
+			var mobileYachts = document.getElementById('mobileYachts');
+			var mobileTours = document.getElementById('mobileTours');
+			var mobileBookNow = document.getElementById('mobileBookNow');
 			function openMenu() {
 				mobileMenuOverlay.classList.add('open');
 				document.body.style.overflow = 'hidden';
@@ -576,6 +583,12 @@
 			// Close menu on ESC
 			document.addEventListener('keydown', function(e) {
 				if (e.key === 'Escape') closeMenu();
+			});
+			// Close menu when any mobile menu link or button is clicked
+			[mobileFleet, mobileYachts, mobileTours, mobileBookNow].forEach(function(el) {
+				el.addEventListener('click', function() {
+					closeMenu();
+				});
 			});
 		});
 		</script>
